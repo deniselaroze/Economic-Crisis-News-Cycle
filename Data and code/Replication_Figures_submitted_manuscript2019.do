@@ -1,7 +1,7 @@
 
 
 *cd "C:\Users\Profesor\Dropbox\CESS-Santiago\archive\OxfordProject"
-cd "C:\Users\Denise Laroze P\Dropbox\CESS-Santiago\archive\OxfordProject"
+cd "C:\Users\Denise Laroze Prehn\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
 
 //cd "C:\Users\Profesor\Dropbox\CESS-Santiago\archive\OxfordProject"
 
@@ -22,7 +22,7 @@ keep if year>2006 & year <2011
 *egen volumeAvg = rowmean(*_volume)
 *egen toneAvg = rowmean(*_tone)
 
-keep d n retnat_*
+*keep d n retnat_*
 save "date_n.dta", replace
 
 use "basic_data.dta", clear
@@ -36,7 +36,7 @@ drop retnat_mean
 
 merge 1:1 d using "date_n.dta"
 
-drop _merge
+drop _merge inflation
 
 save "econ_crisis_fig.dta", replace
 
@@ -53,11 +53,11 @@ tssmooth ma tone_ma = toneavg, window(3)
 tssmooth ma volume_ma = volumeavg, window(3) 
 tssmooth ma gdp_ma = gdp, window(3) 
 
-rename u unemp_rate
+*rename u unemp_rate
 
 label var tone_ma "Tone (MA)  "
 *label var emp "Employment"
-label var inflation "Inflation (rate)"
+label var cpi_cg "Inflation (rate)"
 label var volume_ma "Volume (MA)  "
 label var time "Time"
 label var retnat_mean "Ret. Perception Econ. (mean)"
@@ -71,19 +71,19 @@ label var unemp_rate "Unemployment"
 /// Figure 1
 
 twoway line unemp_rate d, yaxis(1) ytitle(Unemployment Rate, axis(1)) ylabel(,nogrid) lp(shortdash)  lc(gs0) /*
-*/ || line inflation d, yaxis(2) ytitle(Inflation Rate, axis(2)) lc(gs0) || line gdp_ma d, yaxis(3) ytitle(GDP (MA), axis(3)) lp(longdash) lc(gs0) scheme(lean2) xtitle(Date) legend(pos(6) rows(1))  graphregion(color(white)) bgcolor(white)
-graph export "graphs/new/realEcon.png", replace
+*/ || line cpi_cg d, yaxis(2) ytitle(Inflation Rate, axis(2)) lc(gs0) || line gdp_ma d, yaxis(3) ytitle(GDP (MA), axis(3)) lp(longdash) lc(gs0) scheme(lean2) xtitle(Date) legend(pos(6) rows(1))  graphregion(color(white)) bgcolor(white)
+graph export "graphs/realEcon.png", replace
 
 /// Figure 3
 twoway line gdp_ma d, yaxis(1) ytitle(GDP (MA), axis(1)) ylabel(,nogrid) lp(longdash) lc(gs4) || /*
 */ line unemp_rate d, yaxis(2) ytitle(Unemployment rate, axis(2)) ylabel(,nogrid) lp(shortdash)lc(gs8)||/*
 */ line tone_ma d, yaxis(3) ytitle(Tone of Economic News, axis(3)) lc(gs0) scheme(lean2) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
-graph export "graphs/new/tone2018.png", replace
+graph export "graphs/tone2018.png", replace
 
 twoway line gdp_ma d, yaxis(1) ytitle(GDP (MA), axis(1)) ylabel(,nogrid) lp(longdash) lc(gs4) || /*
 */ line unemp_rate d, yaxis(2) ytitle(Unemployment rate, axis(2)) ylabel(,nogrid) lp(shortdash)lc(gs8)|| /*
 */line volume_ma d, yaxis(3) ytitle(Volume of Economic News, axis(3)) lc(gs0) scheme(lean2) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
-graph export "graphs/new/volume2018.png", replace
+graph export "graphs/volume2018.png", replace
 
 
 /// Figure 4
@@ -98,7 +98,7 @@ ytitle(Mean Retrospective Nat'l Economy) ttitle(Month/Year) ///
 ylabel(3 "S" 3.5 "3.5" 4 "W" 4.5 "4.5" 5 "MW") ///
 legend(off) scheme(lean2) graphregion(color(white)) bgcolor(white)
 
-graph export "graphs/new/Fig4right.png", replace
+graph export "graphs/Fig4right.png", replace
 
 
 twoway (tsline retnat_1, lcolor(black) lpattern(tight_dot)) ///
@@ -108,7 +108,7 @@ twoway (tsline retnat_1, lcolor(black) lpattern(tight_dot)) ///
 (tsline retnat_5, lcolor(gray) lpattern(longdash)) if retnat_mean!=., ///
 ytitle(Retrospective Nat'l Economy) ttitle(Month/Year) ///
 legend(lab(1 "MB") lab(2 "B") lab(3 "S") lab(4 "W") lab(5 "MW") rows(1) pos(6)) scheme(lean2) graphregion(color(white)) bgcolor(white)
-graph export "graphs/new/Fig4left.png", replace
+graph export "graphs/Fig4left.png", replace
 
 
 
@@ -118,22 +118,26 @@ graph export "graphs/new/Fig4left.png", replace
 
 twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0) /*
 */  || line tone_ma d, yaxis(2) ytitle(Tone of Economic News, axis(2)) scheme(lean2) lp(shortdash) lc(gs4) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
-graph export "graphs/new/evalTone2018.png", replace
+graph export "graphs/evalTone2018.png", replace
 
 twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0)/*
 */ || line volume_ma d, yaxis(2) ytitle(Volume of Economic News, axis(2)) scheme(lean2) lp(shortdash) lc(gs4) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
-graph export "graphs/new/evalVolume2018.png", replace
+graph export "graphs/evalVolume2018.png", replace
 
 
 twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0) /*
 */ || line gdp_ma d , yaxis(2) ytitle(GDP (MA), axis(2)) scheme(lean2) lp(shortdash) lc(gs4) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
-graph export "graphs/new/evalGDP2018.png", replace
+graph export "graphs/evalGDP2018.png", replace
 
 
 twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0) /*
 */ || line unemp_ d , yaxis(2)  scheme(lean2) xtitle("") lp(shortdash) lc(gs4) legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
-graph export "graphs/new/evalUnemp2018.png", replace
+graph export "graphs/evalUnemp2018.png", replace
 
+
+twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0) /*
+*/ || line cpi_cg d , yaxis(2)  scheme(lean2) xtitle("") lp(shortdash) lc(gs4) legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
+graph export "graphs/evalInflation2018.png", replace
 
 
 
@@ -149,10 +153,10 @@ format date %td
 tsset date
 
 tsline Volume_MA , ytitle("Volume") scheme(lean2) xtitle("") graphregion(color(white)) bgcolor(white) lc(black)
-graph export "graphs/new/volume2018Fig2.png", replace 
+graph export "graphs/volume2018Fig2.png", replace 
 
 tsline Tone_MA , ytitle("Tone") scheme(lean2) xtitle("") ylabel(.4(.1).925) graphregion(color(white)) bgcolor(white) lc(black)
-graph export "graphs/new/tone2018Fig2.png", replace 
+graph export "graphs/tone2018Fig2.png", replace 
 
 
 

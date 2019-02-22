@@ -1,5 +1,7 @@
 
-cd "\Users\Denise Laroze Prehn\Dropbox\CESS-Santiago\archive\OxfordProject"
+cd "\Users\Denise Laroze Prehn\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
+*************************************
+
 
 use "BCCAP_long_Rs.dta", clear
 
@@ -23,7 +25,23 @@ label var retper_ "Prosp. Pers. Econ."
 label var proper_ "Prosp. Pers. Econ."
 
 
-// wave models
+************
+*** Table 2
+************
+
+tabulate unemp_was_ wave, col nofreq
+tabulate growth_was_ wave, col nofreq
+
+************
+*** Table 3
+************
+
+tabulate retnat_ wave, col nofreq
+
+
+************
+*** Table 4
+************
 
 ologit retnat_ saw_unemp_ saw_growth_ age i.i.yearsE female LR_Self_    if wave==2
 
@@ -47,10 +65,32 @@ ologit retnat_ saw_unemp_ saw_growth_ age i.i.yearsE female LR_Self_    if wave=
 est store C6
 
 esttab C* using tables/individ_waves.tex, stats(N ll) se booktabs nonumbers title(Ordered logit model of retrospective evaluations of the economy  on having watched economic news \label{tbl:waves}) ///
-	label mtitles("May 2009" " Oct 2009" "Jan 2010" "May 2010" " Jun 2010") replace
+	label mtitles("Apr 2009" " Sept 2009" "Jan 2010" "Apr 2010" " Jun 2010") replace
 estimates clear
+
+
+
+***********************
+*** Appendix II Tables
+***********************
+
+*** Table A.1
+tabulate saw_unemp_ wave, nofreq col
+tabulate saw_growth_ wave, nofreq col
+tabulate saw_inflation_ wave, nofreq col
+
+*** Table A.2
+tabulate retnat_ wave if  (saw_growth==1 | saw_unemp_==1),  col nofreq 
+
+*** Table A.3
+tabulate retnat_ wave if  (saw_growth==0 | saw_unemp_==0),  col nofreq 
+
+
+***********************
+*** Appendix III Tables
+***********************
 	
-/// wave models for growth news compliers
+*** Table A.4
 
 
 ologit retnat_ saw_unemp_ saw_growth_ age i.i.yearsE female LR_Self_    if wave==2 &  (mean_saw_growth==1 | mean_saw_growth==0)
@@ -75,12 +115,13 @@ ologit retnat_ saw_unemp_ saw_growth_ age i.i.yearsE female LR_Self_    if wave=
 est store cc6
 
 esttab cc* using tables/individ_waves_con_growth.tex, stats(N ll) se booktabs nonumbers title(Ordered logit model of retrospective evaluations of the economy  on having watched economic news by people people who were consistent growth news watchers/non-watchers \label{tbl:wavesConGrowth}) ///
-	label mtitles("May 2009" " Oct 2009" "Jan 2010" "May 2010" " Jun 2010") replace
+	label mtitles("Apr 2009" " Sept 2009" "Jan 2010" "Apr 2010" " Jun 2010") replace
 
 estimates clear
 
-	/// wave models for unemployment news compliers
 
+
+*** Table A.5
 
 ologit retnat_ saw_unemp_ saw_growth_ age i.i.yearsE female LR_Self_    if wave==2 &  (mean_saw_unemp==1 |mean_saw_unemp==0)
 
@@ -104,13 +145,13 @@ ologit retnat_ saw_unemp_ saw_growth_ age i.i.yearsE female LR_Self_     if wave
 est store cc6
 
 esttab cc* using tables/individ_waves_con_unemp.tex, stats(N ll) se booktabs nonumbers title(Ordered logit model of retrospective evaluations of the economy  on having watched economic news by people people who were consistent unemployment news watchers/non-watchers \label{tbl:wavesConUnemp}) ///
-	label mtitles("May 2009" " Oct 2009" "Jan 2010" "May 2010" " Jun 2010") replace
+	label mtitles("Apr 2009" " Sept 2009" "Jan 2010" "Apr 2010" " Jun 2010") replace
 
 	
 estimates clear	
 	
 
-// wave models other controls
+*** Table A.6
 
 ologit retnat_ saw_unemp_ saw_growth_ age i.i.yearsE female LR_Self_  union_1 i.pronat_ i.retper_ i.proper_   if wave==2
 
@@ -133,13 +174,13 @@ ologit retnat_ saw_unemp_ saw_growth_ age i.i.yearsE female LR_Self_  union_1  i
 
 est store C6
 
-esttab C* using tables/individ_waves_control.tex, stats(N ll) se booktabs nonumbers title(Ordered logit model of retrospective evaluations of the economy  on having watched economic news \label{tbl:wavesControl}) ///
-	label mtitles("May 2009" " Oct 2009" "Jan 2010" "May 2010" " Jun 2010") replace
+esttab C* using tables/individ_waves_control.tex, stats(N ll) se booktabs nonumbers title(Ordered logit model of retrospective evaluations of the economy  on having watched economic news including more controls \label{tbl:wavesControl}) ///
+	label mtitles("Apr 2009" " Sept 2009" "Jan 2010" "Apr 2010" " Jun 2010") replace
 estimates clear
 	
 
 	
-/// Wave models for unemployment only
+/// Table A.7
 
 ologit retnat_ saw_unemp_  age i.i.yearsE female LR_Self_    if wave==2
 
@@ -163,11 +204,11 @@ ologit retnat_ saw_unemp_  age i.i.yearsE female LR_Self_    if wave==6
 est store C6
 
 esttab C* using tables/individ_waves_unemp.tex, stats(N ll) se booktabs nonumbers title(Ordered logit model of retrospective evaluations of the economy  on having watched unemployment news \label{tbl:wavesUnemp}) ///
-	label mtitles("May 2009" " Oct 2009" "Jan 2010" "May 2010" " Jun 2010") replace
+	label mtitles("Apr 2009" " Sept 2009" "Jan 2010" "Apr 2010" " Jun 2010") replace
 estimates clear
 
 
-/// wave models for growth only
+/// Table A.8
 
 
 ologit retnat_  saw_growth_ age i.i.yearsE female LR_Self_    if wave==2
@@ -192,90 +233,7 @@ ologit retnat_  saw_growth_ age i.i.yearsE female LR_Self_    if wave==6
 est store C6
 
 esttab C* using tables/individ_waves_growth.tex, stats(N ll) se booktabs nonumbers title( Ordered logit model of retrospective evaluations of the economy  on having watched growth/decline news  \label{tbl:wavesGrowth}) ///
-	label mtitles("May 2009" " Oct 2009" "Jan 2010" "May 2010" " Jun 2010") replace
+	label mtitles("Apr 2009" " Sept 2009" "Jan 2010" "Apr 2010" " Jun 2010") replace
 estimates clear	
 	
 	
-	
-	
-	
-//// other wave models	
-	
-	
-
-ologit retnat_ age i.i.yearsE female LR_Self_  unemp_was_    if wave==2 & saw_unemp_==1
-
-est store D2
-
-ologit retnat_ age i.i.yearsE female LR_Self_  unemp_was_   if wave==3 & saw_unemp_==1
-
-est store D3
-
-ologit retnat_ age i.yearsE female LR_Self_  unemp_was_   if wave==4 & saw_unemp_==1
-
-est store D4
-
-ologit retnat_ age i.yearsE female LR_Self_  unemp_was_  if wave==5 & saw_unemp_==1
-
-est store D5
-
-
-ologit retnat_ age i.yearsE female LR_Self_  unemp_was_   if wave==6 & saw_unemp_==1
-
-est store D6
-
-est table D* , star(0.05 0.1 0.01) stats(N ll)
-
-
-
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_    if wave==2 & saw_growth_==1
-
-est store E2
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_   if wave==3 & saw_growth_==1
-
-est store E3
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_   if wave==4 & saw_growth_==1
-
-est store E4
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_  if wave==5 & saw_growth_==1
-
-est store E5
-
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_   if wave==6 & saw_growth_==1
-
-est store E6
-
-est table E* , star(0.05 0.1 0.01) stats(N ll)
-
-
-
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_ unemp_was_   if wave==2 & saw_growth_==1 & saw_unemp_==1
-
-est store F2
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_  unemp_was_ if wave==3 & saw_growth_==1 & saw_unemp_==1
-
-est store F3
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_ unemp_was_  if wave==4 & saw_growth_==1 & saw_unemp_==1
-
-est store F4
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_ unemp_was_ if wave==5 & saw_growth_==1 & saw_unemp_==1
-
-est store F5
-
-
-ologit retnat_ age i.yearsE female LR_Self_  growth_was_  unemp_was_ if wave==6 & saw_growth_==1 & saw_unemp_==1
-
-est store F6
-
-est table F* , star(0.05 0.1 0.01) stats(N ll)
-
-
