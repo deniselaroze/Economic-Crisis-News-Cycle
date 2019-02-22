@@ -1,4 +1,7 @@
 
+log using "regression_rep.log", replace
+
+
 cd "\Users\Denise Laroze Prehn\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
 *************************************
 
@@ -237,3 +240,5 @@ esttab C* using tables/individ_waves_growth.tex, stats(N ll) se booktabs nonumbe
 estimates clear	
 	
 	
+log close
+

@@ -12,5 +12,9 @@ We examine the dynamics of economic attitudes and the mediated economy over the 
 
 ### The replication material includes:
 - Code and data for tables in the manuscript
+- Log files of the output
 - Code to reproduce newspaper content analysis
-- Questionnaire for the BCCAP survey
+- Questionnaire for the BCCAP survey. The complete BCCAP data set is 278 MB and, therefore, too large to upload on github, but it can be sent on request, just email deniselaroze@gmail.com  
+
+
+
