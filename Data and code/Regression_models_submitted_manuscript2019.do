@@ -2,7 +2,7 @@
 log using "regression_rep.log", replace
 
 
-cd "\Users\Denise Laroze Prehn\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
+cd "\Users\Denise Laroze P\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
 *************************************
 
 
@@ -27,6 +27,7 @@ label var pronat_ "Prosp. Nat. Econ."
 label var retper_ "Prosp. Pers. Econ."
 label var proper_ "Prosp. Pers. Econ."
 
+replace LR_Self_ = . if LR_Self_==999
 
 ************
 *** Table 2
