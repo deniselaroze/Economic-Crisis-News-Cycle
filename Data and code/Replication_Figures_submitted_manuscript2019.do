@@ -1,7 +1,7 @@
 
 
 *cd "C:\Users\Profesor\Dropbox\CESS-Santiago\archive\OxfordProject"
-cd "C:\Users\Denise Laroze Prehn\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
+cd "C:\Users\Denise Laroze P\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
 
 //cd "C:\Users\Profesor\Dropbox\CESS-Santiago\archive\OxfordProject"
 
@@ -111,9 +111,15 @@ legend(lab(1 "MB") lab(2 "B") lab(3 "S") lab(4 "W") lab(5 "MW") rows(1) pos(6)) 
 graph export "graphs/Fig4left.png", replace
 
 
+/// Figure 5
+
+twoway line  volume_ma d, yaxis(1) ytitle(Volume of Economic News, axis(1)) ylabel(,nogrid) lc(gs0) /*
+*/  || line tone_ma d, yaxis(2) ytitle(Tone of Economic News, axis(2)) scheme(lean2) lp(shortdash) lc(gs4) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
+graph export "graphs/toneNvolume.png", replace
 
 
-/// Figures 5
+
+/// Figures 6
 
 
 twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0) /*
