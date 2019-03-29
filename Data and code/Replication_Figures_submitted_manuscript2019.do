@@ -113,23 +113,13 @@ graph export "graphs/Fig4left.png", replace
 
 /// Figure 5
 
-twoway line  volume_ma d, yaxis(1) ytitle(Volume of Economic News, axis(1)) ylabel(,nogrid) lc(gs0) /*
-*/  || line tone_ma d, yaxis(2) ytitle(Tone of Economic News, axis(2)) scheme(lean2) lp(shortdash) lc(gs4) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
+twoway line volume_ma d, yaxis(1) ytitle(Volume of Economic News, axis(1)) ylabel(,nogrid) lp(longdash) lc(gs8) || /*
+*/ line retnat_mean  d, yaxis(2) ytitle(Mean Retrospective National Evaluation, axis(2)) ylabel(,nogrid) lc(gs0) ||/*
+*/ line tone_ma d, yaxis(3) ytitle(Tone of Economic News, axis(3)) lc(gs4)   lp(shortdash) scheme(lean2) xtitle("") legend(pos(6) rows(1) label(1 "Volume (MA)  ") label(2 "Ret. Econ Per. (Mean)       ") label(3 "Tone (MA)    ") ) graphregion(color(white)) bgcolor(white)
 graph export "graphs/toneNvolume.png", replace
 
 
-
 /// Figures 6
-
-
-twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0) /*
-*/  || line tone_ma d, yaxis(2) ytitle(Tone of Economic News, axis(2)) scheme(lean2) lp(shortdash) lc(gs4) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
-graph export "graphs/evalTone2018.png", replace
-
-twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0)/*
-*/ || line volume_ma d, yaxis(2) ytitle(Volume of Economic News, axis(2)) scheme(lean2) lp(shortdash) lc(gs4) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
-graph export "graphs/evalVolume2018.png", replace
-
 
 twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0) /*
 */ || line gdp_ma d , yaxis(2) ytitle(GDP (MA), axis(2)) scheme(lean2) lp(shortdash) lc(gs4) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
