@@ -1,11 +1,11 @@
 
 
 *cd "C:\Users\Profesor\Dropbox\CESS-Santiago\archive\OxfordProject"
-cd "C:\Users\Denise Laroze P\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
+cd "C:\Users\Profesor\Dropbox\CESS-Santiago\archive\OxfordProject\Replication material"
 
 //cd "C:\Users\Profesor\Dropbox\CESS-Santiago\archive\OxfordProject"
 
-
+log using "figures_rep.log", replace
 
 
 // Merge
@@ -64,24 +64,24 @@ label var retnat_mean "Ret. Perception Econ. (mean)"
 
 label var gdp_ma "GDP (MA)"
 
-label var unemp_rate "Unemployment"
+label var u "Unemployment"
 
 
 
 /// Figure 1
 
-twoway line unemp_rate d, yaxis(1) ytitle(Unemployment Rate, axis(1)) ylabel(,nogrid) lp(shortdash)  lc(gs0) /*
+twoway line u d, yaxis(1) ytitle(Unemployment Rate, axis(1)) ylabel(,nogrid) lp(shortdash)  lc(gs0) /*
 */ || line cpi_cg d, yaxis(2) ytitle(Inflation Rate, axis(2)) lc(gs0) || line gdp_ma d, yaxis(3) ytitle(GDP (MA), axis(3)) lp(longdash) lc(gs0) scheme(lean2) xtitle(Date) legend(pos(6) rows(1))  graphregion(color(white)) bgcolor(white)
 graph export "graphs/realEcon.png", replace
 
 /// Figure 3
 twoway line gdp_ma d, yaxis(1) ytitle(GDP (MA), axis(1)) ylabel(,nogrid) lp(longdash) lc(gs4) || /*
-*/ line unemp_rate d, yaxis(2) ytitle(Unemployment rate, axis(2)) ylabel(,nogrid) lp(shortdash)lc(gs8)||/*
+*/ line u d, yaxis(2) ytitle(Unemployment rate, axis(2)) ylabel(,nogrid) lp(shortdash)lc(gs8)||/*
 */ line tone_ma d, yaxis(3) ytitle(Tone of Economic News, axis(3)) lc(gs0) scheme(lean2) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
 graph export "graphs/tone2018.png", replace
 
 twoway line gdp_ma d, yaxis(1) ytitle(GDP (MA), axis(1)) ylabel(,nogrid) lp(longdash) lc(gs4) || /*
-*/ line unemp_rate d, yaxis(2) ytitle(Unemployment rate, axis(2)) ylabel(,nogrid) lp(shortdash)lc(gs8)|| /*
+*/ line u d, yaxis(2) ytitle(Unemployment rate, axis(2)) ylabel(,nogrid) lp(shortdash)lc(gs8)|| /*
 */line volume_ma d, yaxis(3) ytitle(Volume of Economic News, axis(3)) lc(gs0) scheme(lean2) xtitle("") legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
 graph export "graphs/volume2018.png", replace
 
@@ -127,7 +127,7 @@ graph export "graphs/evalGDP2018.png", replace
 
 
 twoway line retnat_mean d, yaxis(1) ytitle(Mean Retrospective National Evaluation, axis(1)) ylabel(,nogrid) lc(gs0) /*
-*/ || line unemp_ d , yaxis(2)  scheme(lean2) xtitle("") lp(shortdash) lc(gs4) legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
+*/ || line u d , yaxis(2)  scheme(lean2) xtitle("") lp(shortdash) lc(gs4) legend(pos(6) rows(1)) graphregion(color(white)) bgcolor(white)
 graph export "graphs/evalUnemp2018.png", replace
 
 
@@ -155,5 +155,6 @@ tsline Tone_MA , ytitle("Tone") scheme(lean2) xtitle("") ylabel(.4(.1).925) grap
 graph export "graphs/tone2018Fig2.png", replace 
 
 
+log close
 
 
